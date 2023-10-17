@@ -1,0 +1,25 @@
+****Data Transmission to the Cloud/Mobile App Server**** 
+import requests 
+# Define the server endpoint for data transmission 
+SERVER_ENDPOINT = "http://example.com/api/parking" 
+# Main loop for data collection and transmission 
+try: 
+ while True: 
+ # Trigger a distance measurement 
+ trigger_measurement() 
+ # Measure the distance 
+ distance = measure_distance() 
+ # Send data to the server 
+ data = {"distance": distance} 
+ response = requests.post(SERVER_ENDPOINT, json=data) 
+ if response.status_code == 200: 
+ print(f"Data sent: Distance - {distance} cm") 
+ else: 
+ print("Data transmission failed") 
+ # Adjust the data collection and transmission interval 
+ time.sleep(5) 
+except KeyboardInterrupt: 
+ print("Data collection stopped by the user") 
+finally: 
+ # Clean up GPIO settings 
+ GPIO.cleanup() 
